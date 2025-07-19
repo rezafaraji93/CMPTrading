@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.reza.cmptrading.coins.domain.usecase.GetCoinsListUseCase
 import dev.reza.cmptrading.core.domain.Result
+import dev.reza.cmptrading.core.util.formatFiat
+import dev.reza.cmptrading.core.util.formatPercentage
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
@@ -34,8 +36,8 @@ class CoinsListViewModel(
                                 symbol = coinItem.coin.symbol,
                                 name = coinItem.coin.name,
                                 iconUrl = coinItem.coin.iconUrl,
-                                formattedPrice = coinItem.price.toString(),
-                                formattedChange = coinItem.change.toString(),
+                                formattedPrice = formatFiat(coinItem.price),
+                                formattedChange = formatPercentage(coinItem.change),
                                 isPositive = coinItem.change >= 0
                             )
                         }
