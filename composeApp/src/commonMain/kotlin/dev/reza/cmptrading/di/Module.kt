@@ -31,7 +31,7 @@ expect val platformModule: Module
 val sharedModule = module {
     // core
     single<HttpClient> { HttpClientFactory.create(get()) }
-    viewModel { CoinsListViewModel(get()) }
+    viewModel { CoinsListViewModel(get(), get()) }
     singleOf(::GetCoinsListUseCase)
     singleOf(::KtorCoinsRemoteDataSource).bind<CoinsRemoteDataSource>()
     singleOf(::GetCoinDetailUseCase)
