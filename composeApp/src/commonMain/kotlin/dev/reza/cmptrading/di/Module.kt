@@ -11,6 +11,8 @@ import dev.reza.cmptrading.coins.presentation.CoinsListViewModel
 import dev.reza.cmptrading.core.database.portfolio.PortfolioDatabase
 import dev.reza.cmptrading.core.database.portfolio.getPortfolioDatabase
 import dev.reza.cmptrading.core.network.HttpClientFactory
+import dev.reza.cmptrading.portfolio.data.PortfolioRepositoryImpl
+import dev.reza.cmptrading.portfolio.domain.PortfolioRepository
 import io.ktor.client.HttpClient
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
@@ -42,7 +44,7 @@ val sharedModule = module {
             get<RoomDatabase.Builder<PortfolioDatabase>>()
         )
     }
-
+    singleOf(::PortfolioRepositoryImpl).bind<PortfolioRepository>()
     viewModel { CoinsListViewModel(get(), get()) }
     singleOf(::GetCoinsListUseCase)
     singleOf(::KtorCoinsRemoteDataSource).bind<CoinsRemoteDataSource>()
