@@ -2,13 +2,10 @@ package dev.reza.cmptrading.coins.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.reza.cmptrading.coins.domain.usecase.GetCoinDetailUseCase
-import dev.reza.cmptrading.coins.domain.usecase.GetCoinPriceHistoryUseCase
 import dev.reza.cmptrading.coins.domain.usecase.GetCoinsListUseCase
 import dev.reza.cmptrading.core.domain.Result
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -39,7 +36,7 @@ class CoinsListViewModel(
                                 iconUrl = coinItem.coin.iconUrl,
                                 formattedPrice = coinItem.price.toString(),
                                 formattedChange = coinItem.change.toString(),
-                                isPossible = coinItem.change >= 0
+                                isPositive = coinItem.change >= 0
                             )
                         }
                     )

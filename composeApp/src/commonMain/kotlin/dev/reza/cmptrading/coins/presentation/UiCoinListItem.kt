@@ -7,5 +7,5 @@ data class UiCoinListItem(
     val iconUrl: String,
     val formattedPrice: String,
     val formattedChange: String,
-    val isPossible: Boolean
+    val isPositive: Boolean
 )
