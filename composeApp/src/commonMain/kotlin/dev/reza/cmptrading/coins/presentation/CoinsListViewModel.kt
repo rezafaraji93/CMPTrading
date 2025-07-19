@@ -2,10 +2,13 @@ package dev.reza.cmptrading.coins.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import cmptrading.composeapp.generated.resources.Res
+import cmptrading.composeapp.generated.resources.error_serialization
 import dev.reza.cmptrading.coins.domain.usecase.GetCoinsListUseCase
 import dev.reza.cmptrading.core.domain.Result
 import dev.reza.cmptrading.core.util.formatFiat
 import dev.reza.cmptrading.core.util.formatPercentage
+import dev.reza.cmptrading.core.util.toUiText
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
@@ -46,8 +49,9 @@ class CoinsListViewModel(
             }
             is Result.Error -> {
                 _state.update {
-                    CoinsState(
-                        error = null // TODO
+                    it.copy(
+                        coins = emptyList(),
+                        error = coinsResponse.error.toUiText()
                     )
                 }
 
