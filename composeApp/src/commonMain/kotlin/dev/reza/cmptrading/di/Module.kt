@@ -1,11 +1,15 @@
 package dev.reza.cmptrading.di
 
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import dev.reza.cmptrading.coins.data.remote.impl.KtorCoinsRemoteDataSource
 import dev.reza.cmptrading.coins.domain.api.CoinsRemoteDataSource
 import dev.reza.cmptrading.coins.domain.usecase.GetCoinDetailUseCase
 import dev.reza.cmptrading.coins.domain.usecase.GetCoinPriceHistoryUseCase
 import dev.reza.cmptrading.coins.domain.usecase.GetCoinsListUseCase
 import dev.reza.cmptrading.coins.presentation.CoinsListViewModel
+import dev.reza.cmptrading.core.database.portfolio.PortfolioDatabase
+import dev.reza.cmptrading.core.database.portfolio.getPortfolioDatabase
 import dev.reza.cmptrading.core.network.HttpClientFactory
 import io.ktor.client.HttpClient
 import org.koin.core.context.startKoin
@@ -31,6 +35,14 @@ expect val platformModule: Module
 val sharedModule = module {
     // core
     single<HttpClient> { HttpClientFactory.create(get()) }
+
+    // portfolio
+    single {
+        getPortfolioDatabase(
+            get<RoomDatabase.Builder<PortfolioDatabase>>()
+        )
+    }
+
     viewModel { CoinsListViewModel(get(), get()) }
     singleOf(::GetCoinsListUseCase)
     singleOf(::KtorCoinsRemoteDataSource).bind<CoinsRemoteDataSource>()
