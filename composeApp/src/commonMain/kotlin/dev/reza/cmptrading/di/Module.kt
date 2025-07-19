@@ -13,6 +13,7 @@ import dev.reza.cmptrading.core.database.portfolio.getPortfolioDatabase
 import dev.reza.cmptrading.core.network.HttpClientFactory
 import dev.reza.cmptrading.portfolio.data.PortfolioRepositoryImpl
 import dev.reza.cmptrading.portfolio.domain.PortfolioRepository
+import dev.reza.cmptrading.portfolio.presentation.PortfolioViewModel
 import io.ktor.client.HttpClient
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
@@ -50,4 +51,7 @@ val sharedModule = module {
     singleOf(::KtorCoinsRemoteDataSource).bind<CoinsRemoteDataSource>()
     singleOf(::GetCoinDetailUseCase)
     singleOf(::GetCoinPriceHistoryUseCase)
+    single { get<PortfolioDatabase>().portfolioDao() }
+    single { get<PortfolioDatabase>().userBalanceDao() }
+    viewModel { PortfolioViewModel(get()) }
 }

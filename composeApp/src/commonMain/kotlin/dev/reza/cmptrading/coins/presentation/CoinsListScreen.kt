@@ -114,7 +114,7 @@ fun CoinsList(
 }
 
 @Composable
-fun CoinListItem(
+private fun CoinListItem(
     modifier: Modifier = Modifier,
     coin: UiCoinListItem,
     onCoinLongPressed: (String) -> Unit,
